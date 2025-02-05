@@ -18,4 +18,4 @@ Feel free to contribute to this repository! If you have an improvement, a new sc
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
