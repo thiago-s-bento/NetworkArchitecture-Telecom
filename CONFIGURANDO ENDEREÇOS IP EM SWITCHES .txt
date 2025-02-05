@@ -1,0 +1,136 @@
+CONFIGURANDO ENDEREÇOS IP EM SWITCHES 
+
+**** ALTERANDO SWITCH LAYER 2 PARA LAYER 3 ****
+
+******************************
+****** 1ª PARTE **************
+
+ACESSANDO MODO DE CONFIGURAÇAÕ DE TERMINAL 
+SWITCH-L3-1#enable
+SWITCH-L3-1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SWITCH-L3-1(config)#
+
+
+**** TRANSFORMANDO O SWITCH EM LAYER 3 *****
+
+SWITCH-L3-1(config)#ip routing
+SWITCH-L3-1(config)#
+
+**** TRANSFORMANDO UMA INTERFACE EM ROTEADA **** 
+
+SWITCH-L3-1(config)#interface ethernet 0/0
+SWITCH-L3-1(config-if)#
+SWITCH-L3-1(config-if)#no switchport
+SWITCH-L3-1(config-if)#
+
+
+****  INSERINDO IPs NAS INTERFACES E CRIANDO INTERFACE SECUNDÁRIA **** 
+SWITCH-L3-1(config-if)#ip address 192.168.1.2 255.255.255.0
+SWITCH-L3-1(config-if)#ip addr
+SWITCH-L3-1(config-if)#ip address 192.168.2.2 255.255.255.0 secondary
+SWITCH-L3-1(config-if)#
+
+
+**** CONSULTANDO AS INTERFACES ***** 
+
+SWITCH-L3-1#show running-config interface e0/0
+Building configuration...
+
+Current configuration : 143 bytes
+!
+interface Ethernet0/0
+ no switchport
+ ip address 192.168.2.2 255.255.255.0 secondary
+ ip address 192.168.1.2 255.255.255.0
+ duplex auto
+end
+SWITCH-L3-1#
+
+
+**** CONSULTANDO TABELAS DE ROTEAMENTO APÓS ALTERAR O SWITCH L2 PARA L3 **** 
+
+
+COMANDO SHOW IP ROUTE 
+
+SWITCH-L3-1#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is not set
+
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/24 is directly connected, Ethernet0/0
+L        192.168.1.2/32 is directly connected, Ethernet0/0
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, Ethernet0/0
+L        192.168.2.2/32 is directly connected, Ethernet0/0
+SWITCH-L3-1#
+
+
+
+
+**** CONSULTANDO A TABELA DE ENDEREÇOS MAC DO SWITCH L3 *****
+
+SWITCH-L3-1#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+SWITCH-L3-1#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0050.7966.6800    DYNAMIC     Et0/1
+   1    0050.7966.6801    DYNAMIC     Et0/2
+Total Mac Addresses for this criterion: 2
+SWITCH-L3-1#
+
+
+
+**** CONFIGURANDO A INTERFACE SVI (Switch Virtual Interface)
+
+SWITCH-L3-1#
+SWITCH-L3-1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SWITCH-L3-1(config)#interf
+SWITCH-L3-1(config)#interface vl
+SWITCH-L3-1(config)#interface vlan 1
+SWITCH-L3-1(config-if)#ip add
+SWITCH-L3-1(config-if)#ip address 192.168.10.1 255.255.255.0
+SWITCH-L3-1(config-if)#no sh
+SWITCH-L3-1(config-if)#no shutdown
+SWITCH-L3-1(config-if)#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
