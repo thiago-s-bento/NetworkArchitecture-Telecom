@@ -2,7 +2,9 @@ NetworkArchitecture-Telecom
 Computer Networks and Telecommunications Projects
 
 This repository contains a collection of projects, scripts, commands, configurations, and network designs, all focused on Computer Networks and Telecommunications. Throughout my journey as a Network Engineer, I will share my learnings and solutions developed for various challenges encountered in the day-to-day life of a professional in the field.
+
 What will you find in this repository?
+
 
     Scripts: Automation of network tasks and configurations.
     Commands: Useful commands for network configuration and troubleshooting.
